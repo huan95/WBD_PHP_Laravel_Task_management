@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
@@ -15,8 +16,10 @@ class TaskController extends Controller
      */
     public function list()
     {
-        $tasks = Task::all();
-        return view('list', compact('tasks'));
+//        $tasks = Task::all();
+//        return view('list', compact('tasks'));
+        $tasks = DB::table('tasks')->paginate(5);
+        return view('list', ['tasks' => $tasks]);
     }
 
     /**
@@ -64,7 +67,7 @@ class TaskController extends Controller
             $task->image = $newFileName;
         }
         $task->save();
-        $message = "Tạo Task $request->inputTitle thành công!";
+        $message = "Create Task $request->inputTitle success!";
         Session::flash('create-success', $message);
 
         return redirect()->route('task_list', compact('message'));
@@ -117,4 +120,6 @@ class TaskController extends Controller
         $customer->delete();
         return redirect()->route('task_list');
     }
+
+
 }

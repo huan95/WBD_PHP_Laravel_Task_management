@@ -62,6 +62,7 @@
                 @endif
                 </tbody>
             </table>
+            {!! $tasks->render() !!}
         @endif
         <a href="{{ route('home_list') }}" class="btn btn-info">BACK</a>
 

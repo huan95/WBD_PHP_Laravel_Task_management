@@ -12,7 +12,7 @@
 <body class="fontnen">
 <div class="flex-center position-ref full-height">
     <div class="content">
-        <center><h1 style="color: white">Tast List</h1></center>
+        <center><h1 style="color: white">Task List</h1></center>
         @if(Session::has('create-success'))
             <h5 class="text-primary">{{ Session::get('create-success')}}</h5>
         @endif

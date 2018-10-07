@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
@@ -66,7 +67,7 @@ class TaskController extends Controller
         $message = "Tạo Task $request->inputTitle thành công!";
         Session::flash('create-success', $message);
 
-        return redirect()->route('list', compact('message'));
+        return redirect()->route('task_list', compact('message'));
     }
 
 

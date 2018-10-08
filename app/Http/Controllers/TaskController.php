@@ -18,7 +18,7 @@ class TaskController extends Controller
     {
 //        $tasks = Task::all();
 //        return view('list', compact('tasks'));
-        $tasks = DB::table('tasks')->paginate(5);
+        $tasks = Task::paginate(5);
         return view('list', ['tasks' => $tasks]);
     }
 
@@ -35,7 +35,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -77,7 +77,7 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -88,7 +88,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -99,8 +99,8 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -111,14 +111,22 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
     {
-        $customer = Task::find($id);
-        $customer->delete();
-        return redirect()->route('task_list');
+        $task = Task::find($id);
+        $task->delete();
+//        return redirect()->route('task_list');
+    }
+
+    public function search(Request $request)
+    {
+        $tasks = Task::where('title', 'like', "%" . $request->input('searchTask') . "%")
+            ->orWhere('content', 'like', "%" . $request->input('searchTask') . "%")
+            ->paginate(5);
+       return view('list', compact('tasks'));
     }
 
 

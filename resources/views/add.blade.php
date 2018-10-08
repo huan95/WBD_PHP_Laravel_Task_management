@@ -26,6 +26,7 @@
                        class="form-control"
                        id="inputTitle"
                        name="inputTitle"
+                       weight=""
                        required>
             </div>
             <div class="form-group">

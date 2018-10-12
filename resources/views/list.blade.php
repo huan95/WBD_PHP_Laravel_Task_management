@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List Customer</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- CSS -->
-    <link href="{{asset('/css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
-</head>
-<body class="fontnen">
-<div class="flex-center position-ref full-height">
-    <div class="content">
-        <center><h1 style="color: white">Task List</h1></center>
+@extends('layout.masterList')
+@section('content')
+        <center><h1 >Task List</h1></center>
 
         <form method="GET" action="{{ route('search') }}" accept-charset="UTF-8">
             @csrf
@@ -39,16 +27,16 @@
         @if(!isset($tasks))
             <h5 class="text-primary">Data does not exist!</h5>
         @else
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col" style="color: white">#</th>
-                    <th scope="col" style="color: white">Task title</th>
-                    <th scope="col" style="color: white">Content</th>
-                    <th scope="col" style="color: white">Created</th>
-                    <th scope="col" style="color: white">Due Date</th>
-                    <th scope="col" style="color: white">Image</th>
-                    <th scope="col" style="color: white">Manipulation</th>
+                    <th scope="col" >#</th>
+                    <th scope="col" >Task title</th>
+                    <th scope="col" >Content</th>
+                    <th scope="col" >Created</th>
+                    <th scope="col" >Due Date</th>
+                    <th scope="col" >Image</th>
+                    <th scope="col" >Manipulation</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,15 +49,15 @@
                     <!-- Duyệt mảng $tasks, lấy ra từng trường của từng task để hiển thị ra bảng -->
                     @foreach($tasks as $key => $task)
                         <tr>
-                            <th scope="row" style="color: white">{{ ++$key }}</th>
-                            <td style="color: white"> {{ $task->title }}</td>
-                            <td style="color: white"> {{ $task->content }}</td>
-                            <td style="color: white"> {{ $task->created_at }}</td>
-                            <td style="color: white"> {{ $task->due_date }}</td>
+                            <th scope="row" >{{ ++$key }}</th>
+                            <td > {{ $task->title }}</td>
+                            <td > {{ $task->content }}</td>
+                            <td > {{ $task->created_at }}</td>
+                            <td > {{ $task->due_date }}</td>
                             <td>
                                 <img src="{{ asset('storage/images/' . $task->image) }}" alt="" style="width: 150px">
                             </td>
-                            <td style="color: white; text-align: center"><a id="{{$task->id}}"
+                            <td style="text-align: center; color: black"><a id="{{$task->id}}"
                                         class="btn btn-info delete-task">Delete</a>
                         </tr>
                     @endforeach
@@ -79,17 +67,4 @@
             {!! $tasks->appends(request()->query()) !!}
         @endif
         <a href="{{ route('home_list') }}" class="btn btn-info">BACK</a>
-
-    </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-<script src="{{asset('/js/home.js')}}"></script>
-
-</body>
-</html>
+@endsection
